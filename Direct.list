@@ -14,13 +14,11 @@ DOMAIN-SUFFIX,dyndns.com
 DOMAIN-SUFFIX,bt.cn
 DOMAIN,steamcdn-a.akamaihd.net
 DOMAIN-SUFFIX,steamserver.net
-GEOIP,CN
+
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
 
-#宝塔授权
-IP-CIDR,206.119.73.11/32,no-resolve
 
 # IP段匹配
 IP-CIDR,219.146.1.66/32,no-resolve
