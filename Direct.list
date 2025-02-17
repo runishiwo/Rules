@@ -73,6 +73,8 @@ DOMAIN-SUFFIX,qhstatic.com
 DOMAIN-SUFFIX,qhupdate.com
 DOMAIN-SUFFIX,so.com
 
+#nvidia
+DOMAIN-SUFFIX,nvidia.com
 
 # 58
 DOMAIN-SUFFIX,58.com
