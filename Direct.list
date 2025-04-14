@@ -17,6 +17,7 @@ DOMAIN-SUFFIX,steamserver.net
 DOMAIN-SUFFIX,pkmkv.com
 DOMAIN-SUFFIX,jizhihezi.com
 DOMAIN-SUFFIX,ipinfo.io
+DOMAIN-SUFFIX,gstatic.com
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
