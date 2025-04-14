@@ -1,4 +1,7 @@
 # 直连补充列表(国内域名不解析时，防止走代理使用)
+IP-CIDR,10.0.0.3/32,DIRECT
+IP-CIDR,10.0.0.4/30,DIRECT
+IP-CIDR,10.0.0.8/31,DIRECT
 
 # MyList
 # 域名后缀匹配
