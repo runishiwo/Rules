@@ -20,7 +20,7 @@ DOMAIN-SUFFIX,ipinfo.io
 DOMAIN-SUFFIX,palworldgame.com
 DOMAIN-SUFFIX,gstatic.com
 DOMAIN-SUFFIX,epicgames.dev
-DOMAIN-SUFFIX,asus.com
+DOMAIN-SUFFIX,gstatic.com
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
