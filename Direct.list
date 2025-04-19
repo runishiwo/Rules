@@ -19,6 +19,9 @@ DOMAIN-SUFFIX,jizhihezi.com
 DOMAIN-SUFFIX,ipinfo.io
 DOMAIN-SUFFIX,palworldgame.com
 DOMAIN-SUFFIX,gstatic.com
+DOMAIN-SUFFIX,epicgames.dev
+DOMAIN-SUFFIX,steampowered.com
+DOMAIN-SUFFIX,akamai.steamstatic.com
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
