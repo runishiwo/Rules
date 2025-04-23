@@ -101,9 +101,8 @@ DOMAIN-SUFFIX,ssl-google-analytics.l.google.com
 DOMAIN-SUFFIX,toolbarqueries.google.com
 DOMAIN-SUFFIX,tools.l.google.com
 DOMAIN-SUFFIX,www-googletagmanager.l.google.com
-DOMAIN-SUFFIX,ssl.gstatic.com
 DOMAIN-SUFFIX,update.googleapis.com
-DOMAIN-SUFFIX,www.gstatic.com
+
 
 # 360
 DOMAIN-SUFFIX,360.com
