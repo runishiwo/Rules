@@ -14,6 +14,12 @@ DOMAIN-SUFFIX,jizhihezi.com
 DOMAIN-SUFFIX,ipinfo.io
 DOMAIN-SUFFIX,palworldgame.com
 DOMAIN-SUFFIX,epicgames.dev
+DOMAIN,myip.ipip.net
+DOMAIN,ipv4.ddnspod.com
+DOMAIN,4.ipw.cn
+DOMAIN,ip.3322.net
+DOMAIN-SUFFIX,66666.host
+DOMAIN-SUFFIX,666666.host
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
