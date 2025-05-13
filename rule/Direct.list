@@ -1,8 +1,8 @@
-# MyList
+# 直连列表
+
 # 域名后缀匹配
 DOMAIN-SUFFIX,time.windows.com
 DOMAIN-SUFFIX,lanzov.com
-DOMAIN-SUFFIX,hao123.com
 DOMAIN-SUFFIX,weixin.qq.com
 DOMAIN-SUFFIX,qyapi.weixin.qq.com
 DOMAIN,steamcdn-a.akamaihd.net
@@ -25,11 +25,7 @@ DOMAIN-SUFFIX,steamserver.net
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
-DOMAIN-KEYWORD,bdys
 
-
-# IP段匹配
-IP-CIDR,219.146.1.66/32,no-resolve
 
 # 国内DNS
 DOMAIN-SUFFIX,dns.alidns.com
@@ -109,21 +105,9 @@ DOMAIN-SUFFIX,www-googletagmanager.l.google.com
 DOMAIN-SUFFIX,update.googleapis.com
 
 
-# 360
-DOMAIN-SUFFIX,360.com
-DOMAIN-SUFFIX,360kuai.com
-DOMAIN-SUFFIX,360safe.com
-DOMAIN-SUFFIX,dhrest.com
-DOMAIN-SUFFIX,qhres.com
-DOMAIN-SUFFIX,qhstatic.com
-DOMAIN-SUFFIX,qhupdate.com
-DOMAIN-SUFFIX,so.com
-
 #nvidia
 DOMAIN-SUFFIX,nvidia.com
 
-# 58
-DOMAIN-SUFFIX,58.com
 
 # Alibaba
 DOMAIN-SUFFIX,1688.com
