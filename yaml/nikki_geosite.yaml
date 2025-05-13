@@ -1,0 +1,233 @@
+proxy-providers:
+  主:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+    exclude-filter: >-
+      (?i)(拒绝|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)
+    proxy: "全球直连"
+    url: >-
+      https://订阅
+    override:
+      additional-prefix: '[主要JC] '
+      skip-cert-verify: true
+      udp: true
+  备:
+    type: http
+    interval: 1800
+    health-check:
+      enable: true
+      url: http://www.gstatic.com/generate_204
+      interval: 300
+    exclude-filter: >-
+      (?i)(拒绝|直连|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)
+    proxy: "全球直连"
+    url: >-
+      https://订阅
+    override:
+      additional-prefix: '[备用JC] '
+      skip-cert-verify: true
+      udp: true
+
+proxies:
+- name: "全球直连"
+  type: direct
+  udp: true
+
+# 全局配置
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+allow-lan: true
+bind-address: "*"
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+log-level: warning
+find-process-mode: strict
+global-client-fingerprint: random
+keep-alive-idle: 600
+keep-alive-interval: 1800
+  
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: "ui"
+external-ui-name: zashboard
+external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
+
+#fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+  
+# 流量嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    - "+.wechat.com"
+    - "+.qpic.cn"
+    - "+.qq.com"
+    - "+.wechatapp.com"
+    - "+.vivox.com"
+    
+# 代理模式
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  
+# DNS模块
+dns:
+  enable: true
+  prefer-h3: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true
+  # 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.1/8
+  # 模式切换 whitelist/blacklist 
+  # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "GEOSITE:private,cn"
+    - "+.services.googleapis.cn"
+    - "+.xn--ngstr-lra8j.com"
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "+.ntp1.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
+    - "+.market.xiaomi.com"
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver-policy:
+    "GEOSITE:private,cn":
+    - 223.5.5.5
+    - 119.29.29.29
+    "GEOSITE:geolocation-!cn":
+      - https://dns.cloudflare.com/dns-query
+      - https://dns.google/dns-query
+
+
+# GEO文件配置
+geodata-mode: true # GeoIP 使用的文件,可选 true 为.dat/ false 为.mmdb
+geodata-loader: standard # GEO 文件加载模式：standard：标准加载器；memconservative：专为内存受限(小内存)设备优化的加载器(默认值)
+geo-auto-update: true # 自动更新 GEO 文件,可选 true/false
+geo-update-interval: 24 # 更新间隔,单位：小时
+geox-url: # 自定义 GEO 文件下载地址
+  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+  asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+
+
+# 锚点
+pr: &pr {type: select, proxies: [🚀 节点选择,♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择,♻️ 备用机场自动,🌐 全部节点, 全球直连]}
+
+
+# 策略组
+proxy-groups:
+  - {name: 🚀 节点选择, type: select, proxies: [♻️ 香港自动, ♻️ 日本自动, ♻️ 美国自动, ♻️ 自动选择,♻️ 备用机场自动,🌐 全部节点, 全球直连]}
+  - {name: 📹 YouTube,!!merge <<: *pr}
+  - {name: 🍀 Google,!!merge <<: *pr}
+  - {name: 🤖 ChatGPT,!!merge <<: *pr}
+  - {name: 👨🏿‍💻 GitHub,!!merge <<: *pr}
+  - {name: 🐬 OneDrive,!!merge <<: *pr}
+  - {name: 🪟 Microsoft,!!merge <<: *pr}
+  - {name: 🎵 TikTok,!!merge <<: *pr}
+  - {name: ✈️Telegram,!!merge <<: *pr}
+  - {name: 🎥 NETFLIX, type: select, include-all: true, filter: ".*(解锁|备用).*"}
+  - {name: 💶 PayPal,!!merge <<: *pr}
+  - {name: 🍎 Apple, type: select, proxies: [全球直连, 🚀 节点选择]}
+  - {name: 🎯 全球直连, type: select, proxies: [全球直连, 🚀 节点选择]}
+  - {name: 🐟 漏网之鱼,!!merge <<: *pr}
+  - {name: 🧱GFW, type: select,!!merge <<: *pr}
+  - {name: 🎮Steam, type: select,!!merge <<: *pr}
+  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|(?i)Hong))^((?!(台|日|韩|新|深|美|备用JC)).)*$"}
+  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|(?i)Japan))^((?!(港|台|韩|新|美|备用JC)).)*$" }
+  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^(?=.*(美|(?i)(States|America|US)))(?!.*(港|台|日|韩|新)).+$"}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连|备用JC)).)*$"}
+  - {name: ♻️ 备用机场自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^.*备用JC.*$"}
+  - {name: 🌐 全部节点, type: select, include-all: true}
+rules:
+  
+  
+  
+  - GEOIP,private,全球直连,no-resolve # 私有地址直连
+  - GEOSITE,private,全球直连 # 私有地址直连
+  - RULE-SET,direct1,全球直连 # 自用直连  
+  - GEOSITE,tailscale,全球直连 # 必须直连，否则tailscale代理打洞
+  - GEOSITE,tracker,全球直连 # 必须直连，否则PT/BT直连代理下载
+  - GEOSITE,category-pt,全球直连 # 必须直连，否则PT标记盒子
+  - GEOSITE,tmdb,♻️ 自动选择 # TMDB服务，影视刮削
+  - GEOSITE,apple-cn,🍎 Apple
+  
+  - RULE-SET,proxylite,♻️ 备用机场自动 # 自用代理
+  
+  - GEOSITE,category-ai-!cn,🤖 ChatGPT
+  - GEOSITE,github,👨🏿‍💻 GitHub
+  - GEOSITE,youtube,📹 YouTube
+  - GEOSITE,google,🍀 Google
+  - GEOSITE,onedrive,🐬 OneDrive
+  - GEOSITE,microsoft,🪟 Microsoft
+  - GEOSITE,tiktok,🎵 TikTok
+  - GEOSITE,telegram,✈️Telegram # Telegram服务
+  - GEOIP,telegram,✈️Telegram,no-resolve # Telegram服务IP
+  - GEOIP,google,🍀 Google,no-resolve
+  - GEOSITE,netflix,🎥 NETFLIX
+  - GEOIP,netflix,🎥 NETFLIX,no-resolve
+  - GEOSITE,geolocation-!cn,🚀 节点选择
+  - GEOSITE,gfw,🧱GFW # GFW兜底
+  - GEOSITE,steam,🎮Steam # Steam，默认直连，换区时修改此处，放于GFW之后是因创意工坊需始终代理
+  - GEOSITE,cn,🎯 全球直连 # 中国域名
+  - GEOIP,cn,🎯 全球直连,no-resolve # 中国IP
+  - MATCH,🐟 漏网之鱼
+rule-anchor:
+  ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
+  ip_text: &ip_text {type: http, interval: 86400, behavior: ipcidr, format: text}
+  ip_yaml: &ip_yaml {type: http, interval: 86400, behavior: ipcidr, format: yaml}
+  domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
+  domain_text: &domain_text {type: http, interval: 86400, behavior: domain, format: text}
+  domain_yaml: &domain_yaml {type: http, interval: 86400, behavior: domain, format: yaml}
+  class: &class {type: http, interval: 86400, behavior: classical, format: text}
+  class_yaml: &class_yaml {type: http, interval: 86400, behavior: classical, format: yaml}
+  
+rule-providers: 
+
+  direct1: { <<: *class, url: "https://raw.githubusercontent.com/runishiwo/Rules/refs/heads/main/rule/Direct.list"}
+  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/runishiwo/Rules/refs/heads/main/rule/ProxyLite.list"}
