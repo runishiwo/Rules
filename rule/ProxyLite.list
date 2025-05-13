@@ -5,10 +5,6 @@
 DOMAIN-KEYWORD,1e100
 DOMAIN-KEYWORD,mitce
 
-# IP段匹配
-IP-CIDR,142.171.133.131/32,no-resolve
-IP-CIDR,103.115.43.2/32,no-resolve
-
 # 国外DNS
 DOMAIN-SUFFIX,dns.google
 DOMAIN-SUFFIX,1dot1dot1dot1.cloudflare-dns.com
