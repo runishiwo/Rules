@@ -1,5 +1,7 @@
 # 直连列表
 
+#局域网地址
+IP-CIDR,10.0.0.0/24,no-resolve
 # 域名后缀匹配
 DOMAIN-SUFFIX,time.windows.com
 DOMAIN-SUFFIX,lanzov.com
