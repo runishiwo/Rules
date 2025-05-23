@@ -23,7 +23,7 @@ DOMAIN,ip.3322.net
 DOMAIN-SUFFIX,66666.host
 DOMAIN-SUFFIX,666666.host
 DOMAIN-SUFFIX,steamserver.net
-
+DOMAIN-SUFFIX,linux.do
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
