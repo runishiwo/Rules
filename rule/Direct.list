@@ -28,6 +28,10 @@ DOMAIN-SUFFIX,linux.do
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
 
+#修罗影视
+DOMAIN-KEYWORD,xlys
+DOMAIN-SUFFIX,xl01.com.de
+
 
 # 国内DNS
 DOMAIN-SUFFIX,dns.alidns.com
