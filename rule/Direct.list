@@ -27,6 +27,7 @@ DOMAIN-SUFFIX,linux.do
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
+DOMAIN-SUFFIX,converter-mitce.sakuraikaede.com
 
 #修罗影视
 DOMAIN-KEYWORD,xlys
