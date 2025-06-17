@@ -24,11 +24,14 @@ DOMAIN-SUFFIX,66666.host
 DOMAIN-SUFFIX,666666.host
 DOMAIN-SUFFIX,steamserver.net
 DOMAIN-SUFFIX,linux.do
+DOMAIN-SUFFIX,converter-mitce.sakuraikaede.com
+DOMAIN-SUFFIX,mitce.net
+DOMAIN-SUFFIX,services.googleapis.cn
+DOMAIN-SUFFIX,xn--ngstr-lra8j.com
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
-DOMAIN-SUFFIX,converter-mitce.sakuraikaede.com
-DOMAIN-SUFFIX,app.mitce.net
+
 
 #修罗影视
 DOMAIN-KEYWORD,xlys
