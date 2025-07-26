@@ -3,9 +3,9 @@
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,1e100
-DOMAIN-KEYWORD,mitce
 
 # 全域名匹配
 DOMAIN,onedrive.live.com
 DOMAIN,converter-mitce.sakuraikaede.com
+DOMAIN,app.mitce.net
 
