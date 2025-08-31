@@ -28,7 +28,7 @@ DOMAIN-SUFFIX,xn--ngstr-lra8j.com
 # 域名关键字匹配
 DOMAIN-KEYWORD,baidu
 DOMAIN-KEYWORD,qyapi
-DOMAIN-SUFFIX,youtube
+DOMAIN-KEYWORD,youtube
 
 
 #修罗影视
