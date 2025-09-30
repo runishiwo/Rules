@@ -3,6 +3,7 @@
 
 # 域名关键字匹配
 DOMAIN-KEYWORD,1e100
+DOMAIN-KEYWORD,fx168news
 
 # 全域名匹配
 DOMAIN,onedrive.live.com
