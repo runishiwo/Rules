@@ -1,0 +1,37 @@
+# 直连列表
+
+#局域网地址
+IP-CIDR,10.0.0.0/24,no-resolve
+# 域名后缀匹配
+DOMAIN-SUFFIX,time.windows.com
+DOMAIN-SUFFIX,lanzov.com
+DOMAIN-SUFFIX,weixin.qq.com
+DOMAIN-SUFFIX,qyapi.weixin.qq.com
+DOMAIN,steamcdn-a.akamaihd.net
+DOMAIN-SUFFIX,dyndns.com
+DOMAIN-SUFFIX,bt.cn
+DOMAIN-SUFFIX,pkmkv.com
+DOMAIN-SUFFIX,jizhihezi.com
+DOMAIN-SUFFIX,ipinfo.io
+DOMAIN-SUFFIX,palworldgame.com
+DOMAIN-SUFFIX,epicgames.dev
+DOMAIN-SUFFIX,download.nvidia.com
+DOMAIN,myip.ipip.net
+DOMAIN,ipv4.ddnspod.com
+DOMAIN,4.ipw.cn
+DOMAIN,ip.3322.net
+DOMAIN-SUFFIX,66666.host
+DOMAIN-SUFFIX,666666.host
+DOMAIN-SUFFIX,converter-mitce.sakuraikaede.com
+DOMAIN-SUFFIX,services.googleapis.cn
+DOMAIN-SUFFIX,xn--ngstr-lra8j.com
+# 域名关键字匹配
+DOMAIN-KEYWORD,baidu
+DOMAIN-KEYWORD,qyapi
+
+
+#修罗影视
+DOMAIN-KEYWORD,xlys
+DOMAIN-SUFFIX,xl01.com.de
+
+

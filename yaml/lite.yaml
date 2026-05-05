@@ -1,0 +1,225 @@
+# 锚点
+#PProviders: &PProviders {type: http, interval: 10800, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}, exclude-filter: '(?i)(拒绝|DIRECT|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|traffic)'}
+PProviders: &PProviders {type: http, interval: 10800, health-check: {enable: true, url: 'https://www.google.com/generate_204', interval: 300}}
+#auto: &Auto {type: url-test, interval: 30, tolerance: 10, lazy: true, url: 'https://www.gstatic.com/generate_204', timeout: 5000, max-failed-times: 5, use: [Airport_01]}
+Auto: &Auto {type: url-test, tolerance: 30, interval: 300, max-failed-times: 2, include-all-proxies: true, lazy: true}
+#Auto: &Auto {type: url-test, tolerance: 50, interval: 300, max-failed-times: 3, lazy: true}
+#pr: &pr {type: select, proxies: [常用节点, 其他节点]}
+BaseCR: &BaseCR {type: load-balance, interval: 200, lazy: true, url: 'https://www.google.com/generate_204', strategy: round-robin, include-all-proxies: true}
+BaseCH: &BaseCH {type: load-balance, interval: 200, lazy: true, url: 'https://www.google.com/generate_204', strategy: consistent-hashing, include-all-proxies: true}
+load-balance: &load-balance {type: load-balance, url: https://www.gstatic.com/generate_204, interval: 300, include-all: true, strategy: sticky-sessions}
+proxy-providers:
+    
+  Airport_03:
+    <<: *PProviders
+    proxy: "DIRECT"
+    url: "http://10.0.0.249:3001/Zz99802152/download/collection/Airport_02?noCache=true"
+    path: ./proxy-providers/Airport_03.yaml
+    override:
+      dialer-proxy: 节点选择
+#      additional-prefix: '[机场名称2]'
+      skip-cert-verify: true
+      udp: true 
+
+port: 7888
+socks-port: 7889
+mixed-port: 7890
+redir-port: 7891
+tproxy-port: 7892
+allow-lan: true
+bind-address: '*'
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+log-level: warning
+find-process-mode: 'off'
+global-client-fingerprint: chrome
+global-ua: clash.meta
+keep-alive-idle: 600
+keep-alive-interval: 15
+disable-keep-alive: false
+etag-support: true
+mode: rule
+listeners:
+  - name: tproxy-in
+    type: tproxy
+    port: 7892
+    udp: true # 必须开启 UDP，否则 TProxy 失去灵魂
+
+# 控制面板
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: "ui"
+#external-ui-name: zashboard
+external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+#external-ui-url: "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
+
+#fakeip缓存
+profile:
+  store-selected: true
+  store-fake-ip: true
+  
+# 流量嗅探
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+    - "+.Netflix.com"
+    - "+.nflxvideo.net"
+    - "+.amazonaws.com"
+    - "+.media.dssott.com"
+  skip-domain:
+    - "Mijia Cloud"
+    - "dlg.io.mi.com"
+    - "+.push.apple.com"
+    - "+.apple.com"
+    - "+.wechat.com"
+    - "+.qpic.cn"
+    - "+.qq.com"
+    - "+.wechatapp.com"
+    - "+.vivox.com"
+    
+# 代理模式
+tun:
+  enable: false
+  stack: mixed
+  mtu: 9000
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  strict-route: true
+  gso: true # 通用分段卸载
+  gso-max-size: 65536 # 数据块最大长度
+ 
+
+# DNS模块
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true
+  prefer-h3: false
+  # 模式切换 redir-host / fake-ip
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.0/8
+  # 模式切换 whitelist/blacklist 
+  # 黑名单模式表示如果匹配成功则不返回 Fake-IP, 白名单模式时只有匹配成功才返回 Fake-IP
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "rule-set:mydirect,fakeip-filter,Special"
+  default-nameserver:
+    - 10.0.0.251:8888
+  proxy-server-nameserver:
+    - 10.0.0.251:7777
+  DIRECT-nameserver:
+    - 10.0.0.251:8888
+  DIRECT-nameserver-follow-policy: false
+  nameserver:
+    - 10.0.0.251:8888
+
+# GEO文件配置
+geodata-mode: false
+geodata-loader: memconservative
+geo-auto-update: false
+geo-update-interval: 24
+geox-url:
+  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+  asn: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb"
+
+
+# 策略组
+
+proxy-groups:
+  - {name: 节点选择, type: select, proxies: [故障转移, 常用节点, 自建家宽, 其他节点, 全部节点], icon: "https://img.icons8.com/?size=100&id=110563&format=png&color=000000"}
+  - {name: 故障转移, type: fallback, proxies: [常用节点, 其他节点], url: 'https://www.gstatic.com/generate_204', interval: 30, lazy: false}
+  - {name: CF节点落地, type: url-test, tolerance: 50, hidden: true, interval: 120, use: [Airport_03], icon: "https://api.iconify.design/streamline-sharp-color:landing.svg"}
+  - {name: YouTube, type: select, proxies: [CF节点落地, 节点选择, 全部节点], icon: "https://img.icons8.com/?size=100&id=19318&format=png&color=000000"}
+  - {name: TikTok, type: select, proxies: [自建家宽, 节点选择], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/tiktok.png"}
+  - {name: AI, type: select, proxies: [自建家宽, 节点选择], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/ai.png"}
+  - {name: Telegram, type: select, proxies: [自建家宽, 节点选择], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/telegram.png"}
+  - {name: 常用节点, <<: *Auto, filter: "^(?!.*(住宅|ISP|Residential))(?=.*(CY|广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|freeairport)).*$", icon: "https://img.icons8.com/?size=100&id=114604&format=png&color=000000"}
+  - {name: 备用机场, <<: *Auto, filter: "(?=.*(CY|CF)).*$", icon: "https://img.icons8.com/?size=100&id=21012&format=png&color=000000"}
+  - {name: 自建家宽, <<: *load-balance, filter: "(?=.*(?i)(CF|原生|家宽|住宅|(?i)ISP|AT&T|Verizon|Sprint|T-Mobile|HKT|HGC|HKBN|CMHK|Hinet|Softbank|KDDI|Singtel|M1|Starhub|The_house|private|home|icable|att))", exclude-filter: "(?=.*(?i)(Seattle))", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/private_node.png"}
+  - {name: 其他节点, <<: *Auto, hidden: true, filter: "^((?!(DIRECT|CY|拒绝|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan|广新|新加坡|SG|坡|狮城|🇸🇬|Singapore|freeairport)).)*$", icon: "https://img.icons8.com/?size=100&id=dLulFOVzWcts&format=png&color=000000"}
+  - {name: 全部节点, type: select, include-all: true, icon: "https://img.icons8.com/?size=100&id=28Ffn7WfoE35&format=png&color=000000"}
+rules:
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+  - RULE-SET,HTTPDNS,REJECT
+# 禁用QUIC，防止速度不佳和IP泄露，不包括国内
+#  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((RULE-SET,cn_domain))),REJECT
+#  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((RULE-SET,cn_ip))),REJECT
+  - RULE-SET,mydirect,DIRECT
+  - RULE-SET,Special,DIRECT
+  - RULE-SET,steam_cn_domain,DIRECT
+  - RULE-SET,steamcdn_ip,DIRECT,no-resolve
+  - RULE-SET,steamcdn_domain,DIRECT  
+  - RULE-SET,apple_cn_domain,DIRECT
+  - RULE-SET,private_ip,DIRECT,no-resolve
+  
+  - RULE-SET,proxylite,节点选择
+  - RULE-SET,hanman,备用机场  
+  - RULE-SET,tiktok_domain,TikTok
+  - RULE-SET,tiktok2_domain,TikTok
+  - RULE-SET,ai!cn_domain,AI
+  - RULE-SET,ai_domain,AI
+  - RULE-SET,openai_domain,AI
+  - RULE-SET,telegram_domain,Telegram
+  - RULE-SET,telegram_ip,Telegram,no-resolve
+  - RULE-SET,youtube_domain,YouTube
+  - MATCH,节点选择
+rule-anchor:
+  ip: &ip {type: http, interval: 43200, behavior: ipcidr, format: mrs}
+  ip_text: &ip_text {type: http, interval: 43200, behavior: ipcidr, format: text}
+  ip_yaml: &ip_yaml {type: http, interval: 43200, behavior: ipcidr, format: yaml}
+  domain: &domain {type: http, interval: 43200, behavior: domain, format: mrs}
+  domain_text: &domain_text {type: http, interval: 43200, behavior: domain, format: text}
+  domain_yaml: &domain_yaml {type: http, interval: 43200, behavior: domain, format: yaml}
+  class: &class {type: http, interval: 43200, behavior: classical, format: text}
+  class_yaml: &class_yaml {type: http, interval: 43200, behavior: classical, format: yaml}
+  
+rule-providers: 
+  mydirect: { <<: *class, url: "https://raw.githubusercontent.com/runishiwo/Rules/refs/heads/main/rule/Direct.list"}
+  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/runishiwo/Rules/refs/heads/main/rule/ProxyLite.list"}
+  hanman: { <<: *class, url: "http://127.0.0.1/rules/site.list"}
+
+
+  youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  steamcdn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/Steam-domain.mrs"}
+  apple_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/apple%40cn.mrs"}
+  tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  tiktok2_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tiktok.mrs"}
+  ai!cn_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs"}
+  ai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/ai.mrs"}
+  openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs"}
+  steam_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/steam.mrs"}
+  steam_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam%40cn.mrs"}
+  steamcdn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/steamCDN-ip.mrs"}
+  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  fakeip-filter: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs"}
+#  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs" }
+  HTTPDNS: { <<: *class_yaml, url: "https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/HTTPDNS.yaml"}
+  Special: { <<: *class_yaml, url: "https://testingcf.jsdelivr.net/gh/dler-io/Rules@main/Clash/Provider/Special.yaml"}
+  
+  
+#  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs" }
+  private_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/private.mrs"} 
+  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+
+
+proxies:
